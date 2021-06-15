@@ -1,11 +1,14 @@
 package com.codecool.spingboot_tasks.error_handling.controller;
 
-import com.codecool.spingboot_tasks.error_handling.model.Product;
+
+
+import com.codecool.spingboot_tasks.error_handling.dto.ErrorDto;
+import com.codecool.spingboot_tasks.error_handling.exception.ProductNotFoundException;
+import com.codecool.spingboot_tasks.error_handling.service.Product;
 import com.codecool.spingboot_tasks.error_handling.service.ProductService;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,8 +31,12 @@ public class ProductController {
         return productService.getProduct(id);
     }
 
-    @ExceptionHandler({ IllegalStateException.class})
-    public void handleException(Exception e) {
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({ ProductNotFoundException.class })
+    public ResponseEntity<ErrorDto> handleException(Exception e) {
         System.out.println(e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND.value())
+                .body(new ErrorDto("test", e.getMessage()));
     }
 }

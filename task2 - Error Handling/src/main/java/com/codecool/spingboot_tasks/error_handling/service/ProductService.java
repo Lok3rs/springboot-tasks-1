@@ -1,6 +1,5 @@
 package com.codecool.spingboot_tasks.error_handling.service;
 
-import com.codecool.spingboot_tasks.error_handling.model.Product;
 import com.codecool.spingboot_tasks.error_handling.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,8 @@ public class ProductService {
     }
 
     public List<Product> getProducts(){
+        String a = null;
+        a.toString();
         return productRepository.findAll();
     }
 
