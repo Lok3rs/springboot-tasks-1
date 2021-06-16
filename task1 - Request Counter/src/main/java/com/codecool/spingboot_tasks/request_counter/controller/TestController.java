@@ -24,8 +24,7 @@ public class TestController {
 
     @GetMapping("/api/request")
     public void get() {
-        this.method = "GET";
-        service.increaseCounter(this.method);
+
     }
 
     @PostMapping("/api/request")
